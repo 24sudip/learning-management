@@ -3,6 +3,7 @@
 use App\Http\Controllers\{ProfileController, AdminController, InstructorController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController};
+use App\Http\Controllers\Frontend\IndexController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -101,7 +102,9 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     });
 });
 
+// Route Accessable for All
 Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login');
+Route::get('/course/details/{id}/{slug}', [IndexController::class, 'CourseDetails']);
 
 require __DIR__.'/auth.php';
 

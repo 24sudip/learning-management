@@ -12,7 +12,8 @@ class UserController extends Controller
     public function Index() {
         $categories = Category::latest()->limit(6)->get();
         $courses = Course::where('status', 1)->orderBy('id','ASC')->limit(6)->get();
-        return view('frontend.index', compact('categories','courses'));
+        $course_categories = Category::orderBy('category_name','ASC')->get(['category_name','id']);
+        return view('frontend.index', compact('categories','courses','course_categories'));
     }
 
     public function UserProfile() {
