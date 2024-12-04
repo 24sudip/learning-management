@@ -105,6 +105,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
 // Route Accessable for All
 Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login');
 Route::get('/course/details/{id}/{slug}', [IndexController::class, 'CourseDetails']);
+Route::get('/category/{id}/{slug}', [IndexController::class, 'CategoryCourse']);
 
 require __DIR__.'/auth.php';
 

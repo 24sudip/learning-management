@@ -13,6 +13,17 @@ class IndexController extends Controller
 {
     public function CourseDetails($id, $slug) {
         $course = Course::find($id);
-        return view('frontend.course.course-details', compact('course'));
+        $course_goals = CourseGoal::where('course_id', $id)->orderBy('id','DESC')->get();
+        $instructor_courses = Course::where('instructor_id', $course->instructor_id)->orderBy('id','DESC')->get();
+        $categories = Category::latest()->get();
+        $related_courses = Course::where('category_id', $course->category_id)->where('id','!=', $id)->orderBy('id','DESC')
+        ->limit(3)->get();
+        return view('frontend.course.course-details', compact('course','course_goals','instructor_courses','categories','related_courses'));
+    }
+
+    public function CategoryCourse($id, $slug) {
+        $courses = Course::where('category_id', $id)->where('status', 1)->get();
+        $category = Category::where('id', $id)->first();
+        return view('frontend.category.category-all', compact('courses','category'));
     }
 }
