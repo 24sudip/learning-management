@@ -1,4 +1,4 @@
-<!-- It is never too late to be what you might have been. - George Eliot -->
+<!-- Waste no more time arguing what a good man should be, be one. - Marcus Aurelius -->
 @extends('frontend.master')
 
 @section('home_content')
@@ -12,13 +12,14 @@
           class="breadcrumb-content d-flex flex-wrap align-items-center justify-content-between"
         >
           <div class="section-heading">
-            <h2 class="section__title text-white">{{ $category->category_name }}</h2>
+            <h2 class="section__title text-white">{{ $sub_category->sub_category_name }}</h2>
           </div>
           <ul
             class="generic-list-item generic-list-item-white generic-list-item-arrow d-flex flex-wrap align-items-center"
           >
             <li><a href="index.html">Home</a></li>
-            <li>{{ $category->category_name }}</li>
+            <li>{{ $sub_category->category->category_name }}</li>
+            <li>{{ $sub_category->sub_category_name }}</li>
           </ul>
         </div>
         <!-- end breadcrumb-content -->

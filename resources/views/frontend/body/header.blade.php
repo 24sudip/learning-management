@@ -157,7 +157,11 @@
                                 </a>
                                 <ul class="sub-menu">
                                     @foreach ($sub_categories as $sub_category)
-                                    <li><a href="#">{{ $sub_category->sub_category_name }}</a></li>
+                                    <li>
+                                        <a href="{{ url('sub-category/'. $sub_category->id.'/'. $sub_category->sub_category_slug) }}">
+                                            {{ $sub_category->sub_category_name }}
+                                        </a>
+                                    </li>
                                     @endforeach
                                 </ul>
                             </li>

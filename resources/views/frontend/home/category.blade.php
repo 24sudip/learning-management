@@ -37,13 +37,16 @@
                 />
                 <div class="category-content">
                   <div class="category-inner">
-                    <h3 class="cat__title"><a href="#">{{ $category->category_name }}</a></h3>
+                    <h3 class="cat__title">
+                        <a href="{{ url('category/'. $category->id.'/'. $category->category_slug) }}">
+                        {{ $category->category_name }}</a>
+                    </h3>
                     @php
                         $courses = App\Models\Course::where('category_id', $category->id)->get();
                     @endphp
                     <p class="cat__meta">{{ count($courses) }} courses</p>
-                    <a 
-                      href="#"
+                    <a
+                      href="{{ url('category/'. $category->id.'/'. $category->category_slug) }}"
                       class="btn theme-btn theme-btn-sm theme-btn-white"
                       >Explore<i class="la la-arrow-right icon ms-1"></i
                     ></a>
