@@ -88,7 +88,7 @@
                                             </span>
                                         </p>
                                         @endif
-                                        <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist">
+                                        <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist" id="{{ $course->id }}" onclick="addToWishlist(this.id)">
                                             <i class="la la-heart-o"></i>
                                         </div>
                                     </div>

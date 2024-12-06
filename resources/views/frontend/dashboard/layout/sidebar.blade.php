@@ -81,7 +81,7 @@
         >
     </li>
     <li>
-        <a href="dashboard-bookmark.html"
+        <a href="{{ route('user.wishlist') }}"
           ><svg
             class="me-2"
             xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@
               d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"
             />
           </svg>
-          Bookmarks</a
+          Wishlist<span class="badge text-bg-info p-1 ms-2" id="wishQty">3</span></a
         >
     </li>
     <li>

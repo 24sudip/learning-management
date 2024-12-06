@@ -3,7 +3,7 @@
 use App\Http\Controllers\{ProfileController, AdminController, InstructorController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController};
-use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\{IndexController, WishlistController};
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -23,6 +23,13 @@ Route::middleware('auth')->group(function () {
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // User Wishlist All Route
+    Route::controller(WishlistController::class)->group(function () {
+        Route::get('/user/wishlist', 'AllWishlist')->name('user.wishlist');
+        Route::get('/get-wishlist-course/', 'GetWishlistCourse');
+        Route::get('/wishlist-remove/{id}', 'RemoveWishlist');
+    });
 });
 
 // Admin Group Middleware
@@ -108,6 +115,7 @@ Route::get('/course/details/{id}/{slug}', [IndexController::class, 'CourseDetail
 Route::get('/category/{id}/{slug}', [IndexController::class, 'CategoryCourse']);
 Route::get('/sub-category/{id}/{slug}', [IndexController::class, 'SubCategoryCourse']);
 Route::get('/instructor/details/{id}', [IndexController::class, 'InstructorDetails'])->name('instructor.details');
+Route::post('/add-to-wishlist/{course_id}', [WishlistController::class, 'AddToWishlist']);
 
 require __DIR__.'/auth.php';
 

@@ -170,6 +170,8 @@ END DASHBOARD AREA
     }
     @endif
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    @include('frontend.body.script')
   </body>
 
 <!-- Mirrored from techydevs.com/demos/themes/html/aduca-demo/aduca/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 14 Nov 2024 11:25:19 GMT -->
