@@ -3,7 +3,7 @@
 use App\Http\Controllers\{ProfileController, AdminController, InstructorController, UserController};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController};
-use App\Http\Controllers\Frontend\{IndexController, WishlistController};
+use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -111,11 +111,18 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
 
 // Route Accessable for All
 Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login');
+
 Route::get('/course/details/{id}/{slug}', [IndexController::class, 'CourseDetails']);
 Route::get('/category/{id}/{slug}', [IndexController::class, 'CategoryCourse']);
 Route::get('/sub-category/{id}/{slug}', [IndexController::class, 'SubCategoryCourse']);
 Route::get('/instructor/details/{id}', [IndexController::class, 'InstructorDetails'])->name('instructor.details');
+
 Route::post('/add-to-wishlist/{course_id}', [WishlistController::class, 'AddToWishlist']);
+
+Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart']);
+Route::get('/cart/data', [CartController::class, 'CartData']);
+// Get Data From Minicart 
+Route::get('/course/mini/cart', [CartController::class, 'AddMiniCart']);
 
 require __DIR__.'/auth.php';
 

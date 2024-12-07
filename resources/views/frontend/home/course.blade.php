@@ -228,9 +228,9 @@
                     @endforeach
                 </ul>
                 <div class="d-flex justify-content-between align-items-center">
-                    <a href="#" class="btn theme-btn flex-grow-1 me-3">
+                    <button type="submit" class="btn theme-btn flex-grow-1 me-3" onclick="addToCart({{ $course->id }},'{{ $course->course_name }}','{{ $course->instructor_id }}','{{ $course->course_name_slug }}')">
                         <i class="la la-shopping-cart me-1 fs-18"></i> Add to Cart
-                    </a>
+                    </button>
                     <div class="icon-element icon-element-sm shadow-sm cursor-pointer" title="Add to Wishlist">
                         <i class="la la-heart-o"></i>
                     </div>
