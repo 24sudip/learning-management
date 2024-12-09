@@ -53,18 +53,16 @@
             <ul>
                 <li> <a href="{{ route('admin.all.course') }}"><i class="bx bx-right-arrow-alt"></i>All Courses</a>
                 </li>
-                <li> <a href="ecommerce-products.html"><i class="bx bx-right-arrow-alt"></i>Products</a>
-                </li>
             </ul>
         </li>
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
                 </div>
-                <div class="menu-title">Components</div>
+                <div class="menu-title">Coupon Manage</div>
             </a>
             <ul>
-                <li> <a href="component-alerts.html"><i class="bx bx-right-arrow-alt"></i>Alerts</a>
+                <li> <a href="{{ route('admin.all.coupon') }}"><i class="bx bx-right-arrow-alt"></i>All Coupon</a>
                 </li>
                 <li> <a href="component-accordions.html"><i class="bx bx-right-arrow-alt"></i>Accordions</a>
                 </li>

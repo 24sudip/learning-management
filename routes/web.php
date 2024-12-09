@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\{ProfileController, AdminController, InstructorController, UserController};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\{CategoryController, CourseController};
+use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
 
 // Route::get('/', function () {
@@ -71,6 +71,17 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::controller(AdminController::class)->group(function () {
         Route::get('/admin/all/course', 'AdminAllCourse')->name('admin.all.course');
         Route::post('/update/course/status', 'UpdateCourseStatus')->name('update.course.status');
+        Route::get('/admin/course/details/{id}', 'AdminCourseDetails')->name('admin.course.details');
+    });
+
+    // Admin Coupon All Route
+    Route::controller(CouponController::class)->group(function () {
+        Route::get('/admin/all/coupon', 'AdminAllCoupon')->name('admin.all.coupon');
+        Route::get('/admin/add/coupon', 'AdminAddCoupon')->name('admin.add.coupon');
+        Route::post('/admin/store/coupon', 'AdminStoreCoupon')->name('admin.store.coupon');
+        Route::get('/admin/edit/coupon/{id}', 'AdminEditCoupon')->name('admin.edit.coupon');
+        Route::post('/admin/update/coupon/{id}', 'AdminUpdateCoupon')->name('admin.update.coupon');
+        Route::get('/admin/delete/coupon/{id}', 'AdminDeleteCoupon')->name('admin.delete.coupon');
     });
 });
 
@@ -137,6 +148,8 @@ Route::controller(CartController::class)->group(function () {
     Route::get('/get-cart-course', 'GetCartCourse');
     Route::get('/cart-remove/{rowId}', 'CartRemove');
 });
+
+Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
 
 require __DIR__.'/auth.php';
 

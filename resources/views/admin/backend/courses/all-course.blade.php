@@ -50,7 +50,7 @@
                             <td>{{ $course->category->category_name }}</td>
                             <td>{{ $course->selling_price }}</td>
                             <td>
-                                <a href="" class="btn btn-info"><i class="lni lni-eye"></i></a>
+                                <a href="{{ route('admin.course.details', $course->id) }}" class="btn btn-info"><i class="lni lni-eye"></i></a>
                             </td>
                             <td>
                                 <div class="form-check-danger form-check form-switch">
