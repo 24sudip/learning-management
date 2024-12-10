@@ -50,9 +50,12 @@
 
             </tbody>
           </table>
-          <div
-            class="d-flex flex-wrap align-items-center justify-content-between pt-4"
-          >
+          <div class="d-flex flex-wrap align-items-center justify-content-between pt-4">
+            @if (Session::has('coupon'))
+            <pre>
+                {{ json_encode(Session::get('coupon'), JSON_PRETTY_PRINT) }}
+            </pre>
+            @else
             <form action="#">
                 <div class="input-group mb-2" id="couponField">
                     <input class="form-control form--control ps-3" type="text" id="coupon_name" placeholder="Coupon code"/>
@@ -61,31 +64,24 @@
                     </div>
                 </div>
             </form>
+            @endif
             <a href="#" class="btn theme-btn mb-2">Update Cart</a>
           </div>
         </div>
         <div class="col-lg-4 ms-auto">
-          <div class="bg-gray p-4 rounded-rounded mt-40px">
-            <h3 class="fs-18 font-weight-bold pb-3">Cart Totals</h3>
-            <div class="divider"><span></span></div>
-            <ul class="generic-list-item pb-4">
-              <li
-                class="d-flex align-items-center justify-content-between font-weight-semi-bold"
-              >
-                <span class="text-black">Subtotal:</span>
-                $<span id="cartSubTotal"></span>
-              </li>
-              <li
-                class="d-flex align-items-center justify-content-between font-weight-semi-bold"
-              >
-                <span class="text-black">Total:</span>
-                $<span id="cartSubTotal"></span>
-              </li>
-            </ul>
-            <a href="checkout.html" class="btn theme-btn w-100"
-              >Checkout <i class="la la-arrow-right icon ms-1"></i
-            ></a>
-          </div>
+            <div class="bg-gray p-4 rounded-rounded mt-40px">
+                <ul class="generic-list-item pb-4">
+                    <li class="d-flex align-items-center justify-content-between font-weight-semi-bold">
+                    <span class="text-black">Before:</span>
+                    $<span id="cartSubTotal"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-gray p-4 rounded-rounded mt-40px" id="couponCalField">
+            </div>
+            <a href="{{ route('checkout') }}" class="btn theme-btn w-100">
+                Checkout <i class="la la-arrow-right icon ms-1"></i>
+            </a>
         </div>
       </div>
       <!-- end container -->
