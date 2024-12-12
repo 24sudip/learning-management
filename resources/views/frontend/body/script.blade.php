@@ -126,6 +126,7 @@
         });
     }
 </script>
+
 {{-- Start add To Cart --}}
 <script type="text/javascript">
     function addToCart(courseId, courseName, instructorId, slug) {
@@ -166,6 +167,52 @@
         });
     }
 </script>
+{{-- End add To Cart --}}
+
+{{-- Start Buy New Button --}}
+<script type="text/javascript">
+    function buyCourse(courseId, courseName, instructorId, slug) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                _token: '{{ csrf_token() }}',
+                course_name: courseName,
+                course_name_slug: slug,
+                instructor: instructorId
+            },
+            url: "/buy/data/store/"+ courseId,
+            success: function (data) {
+                miniCart();
+                // Start Message
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4500
+                })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: data.success,
+                    });
+                    // Redirect to the checkout page
+                    window.location.href = "/checkout"; 
+                } else {
+                    Toast.fire({
+                        type: 'error',
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }
+                // End Message
+            },
+        });
+    }
+</script>
+{{-- End Buy New Button --}}
+
 {{-- Start Mini Cart --}}
 <script type="text/javascript">
     function miniCart() {

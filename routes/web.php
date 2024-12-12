@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\{ProfileController, AdminController, InstructorController, UserController};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController};
+use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController, SettingController, OrderController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
 
 // Route::get('/', function () {
@@ -83,6 +83,17 @@ Route::middleware(['auth','roles:admin'])->group(function () {
         Route::post('/admin/update/coupon/{id}', 'AdminUpdateCoupon')->name('admin.update.coupon');
         Route::get('/admin/delete/coupon/{id}', 'AdminDeleteCoupon')->name('admin.delete.coupon');
     });
+
+    // Smtp Setting All Route
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/smtp/setting', 'SmtpSetting')->name('smtp.setting');
+        Route::post('/update/smtp/{id}', 'UpdateSmtp')->name('update.smtp');
+    });
+
+    // Admin All Order Route
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/admin/pending/order', 'AdminPendingOrder')->name('admin.pending.order');
+    });
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
@@ -137,6 +148,7 @@ Route::get('/instructor/details/{id}', [IndexController::class, 'InstructorDetai
 Route::post('/add-to-wishlist/{course_id}', [WishlistController::class, 'AddToWishlist']);
 
 Route::post('/cart/data/store/{id}', [CartController::class, 'addToCart']);
+Route::post('/buy/data/store/{id}', [CartController::class, 'BuyToCart']);
 Route::get('/cart/data', [CartController::class, 'CartData']);
 // Get Data From Minicart
 Route::get('/course/mini/cart', [CartController::class, 'AddMiniCart']);
