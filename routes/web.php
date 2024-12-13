@@ -93,6 +93,9 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     // Admin All Order Route
     Route::controller(OrderController::class)->group(function () {
         Route::get('/admin/pending/order', 'AdminPendingOrder')->name('admin.pending.order');
+        Route::get('/admin/order/details/{id}', 'AdminOrderDetails')->name('admin.order.details');
+        Route::get('/pending/confirm/{id}', 'PendingToConfirm')->name('pending.confirm');
+        Route::get('/admin/confirmed/order', 'AdminConfirmedOrder')->name('admin.confirmed.order');
     });
 });
 
@@ -134,6 +137,11 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::post('/update/lecture/{id}', 'UpdateLecture')->name('update.lecture');
         Route::get('/delete/lecture/{id}', 'DeleteLecture')->name('delete.lecture');
         Route::post('/delete/section/{id}', 'DeleteSection')->name('delete.section');
+    });
+
+    //
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/instructor/all/order', 'InstructorAllOrder')->name('instructor.all.order');
     });
 });
 
