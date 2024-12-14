@@ -44,7 +44,7 @@
         >
     </li>
     <li>
-        <a href="dashboard-courses.html"
+        <a href="{{ route('my.course') }}"
           ><svg
             class="me-2"
             xmlns="http://www.w3.org/2000/svg"

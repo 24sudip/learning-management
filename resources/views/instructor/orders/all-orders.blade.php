@@ -40,7 +40,7 @@
                                 {{ $order->payment->order_date }}
                             </td>
                             <td>{{ $order->payment->invoice_no }}</td>
-                            <td>{{ $order->course->selling_price }}</td>
+                            <td>{{ $order->payment->total_amount }}</td>
                             <td>{{ $order->payment->payment_type }}</td>
                             <td>
                                 @if ($order->payment->status == 'confirmed')
@@ -50,10 +50,10 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('edit.course', $order->id) }}" class="btn btn-info" title="Edit">
+                                <a href="{{ route('instructor.order.details', $order->payment->id) }}" class="btn btn-info">
                                     <i class="lni lni-eye"></i>
                                 </a>
-                                <a href="{{ route('delete.course', $order->id) }}" class="btn btn-danger" id="delete" title="Delete">
+                                <a href="{{ route('instructor.order.invoice', $order->payment->id) }}" class="btn btn-danger"  title="Invoice">
                                     <i class="lni lni-download"></i>
                                 </a>
                             </td>
