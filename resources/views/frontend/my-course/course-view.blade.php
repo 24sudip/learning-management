@@ -641,13 +641,17 @@
                           <h3 class="fs-20 font-weight-semi-bold">
                             My question relates to
                           </h3>
-                          <form action="#" class="pt-4">
+                          <form method="POST" action="{{ route('user.question') }}" class="pt-4">
+                            @csrf 
+                            <input type="hidden" name="course_id" value="{{ $order->course_id }}">
+                            <input type="hidden" name="instructor_id" value="{{ $order->instructor_id }}">
                             <div class="custom-control-wrap">
                               <div class="custom-control custom-radio mb-3 ps-0">
-                                <input class="form-control form--control ps-3" name="message" type="text" placeholder="Write your response...">
+                                <input class="form-control form--control ps-3" name="subject" type="text"
+                                placeholder="Subject...">
                               </div>
                               <div class="custom-control custom-radio mb-3 ps-0">
-                                <textarea class="form-control form--control ps-3" name="message" rows="4" placeholder="Write your response..."></textarea>
+                                <textarea class="form-control form--control ps-3" name="question" rows="4" placeholder="Write your response..."></textarea>
                               </div>
                             </div>
                             <div class="btn-box text-center">
@@ -660,7 +664,7 @@
                         </div>
                       </div>
                       <!-- end new-question-wrap -->
-                      
+
                       <div class="question-overview-result-wrap">
 
                         <div class="lecture-overview-item">

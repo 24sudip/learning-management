@@ -72,6 +72,11 @@
 	<script src="{{ asset('backend/assets') }}/plugins/chartjs/js/Chart.min.js"></script>
 	<script src="{{ asset('backend/assets') }}/plugins/chartjs/js/Chart.extension.js"></script>
 	<script src="{{ asset('backend/assets') }}/js/index.js"></script>
+
+    <script>
+		new PerfectScrollbar('.chat-list');
+		new PerfectScrollbar('.chat-content');
+	</script>
 	<!--app JS-->
 	<script src="{{ asset('backend/assets') }}/js/app.js"></script>
 

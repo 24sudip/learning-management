@@ -4,6 +4,7 @@ use App\Http\Controllers\{ProfileController, AdminController, InstructorControll
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController, SettingController, OrderController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
+use App\Http\Controllers\Backend\QuestionController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::controller(OrderController::class)->group(function () {
         Route::get('/my/course', 'MyCourse')->name('my.course');
         Route::get('/course/view/{course_id}', 'CourseView')->name('course.view');
+    });
+
+    // User Question All Route
+    Route::controller(QuestionController::class)->group(function () {
+        Route::post('/user/question', 'UserQuestion')->name('user.question');
     });
 });
 
@@ -150,6 +156,12 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/instructor/all/order', 'InstructorAllOrder')->name('instructor.all.order');
         Route::get('/instructor/order/details/{payment_id}', 'InstructorOrderDetails')->name('instructor.order.details');
         Route::get('/instructor/order/invoice/{payment_id}', 'InstructorOrderInvoice')->name('instructor.order.invoice');
+    });
+
+    // Question All Route
+    Route::controller(QuestionController::class)->group(function () {
+        Route::get('/instructor/all/question', 'InstructorAllQuestion')->name('instructor.all.question');
+        Route::get('/question/details/{id}', 'QuestionDetails')->name('question.details');
     });
 });
 
