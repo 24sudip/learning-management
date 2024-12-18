@@ -13,7 +13,7 @@ Route::get('/', [UserController::class, 'Index'])->name('home.index');
 
 Route::get('/dashboard', function () {
     return view('frontend.dashboard.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'roles:user', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [UserController::class, 'UserProfile'])->name('user.profile');
@@ -111,7 +111,7 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     });
 });
 
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware('guest');
 Route::get('/become/instructor', [AdminController::class, 'BecomeInstructor'])->name('become.instructor');
 Route::post('/instructor/register', [AdminController::class, 'InstructorRegister'])->name('instructor.register');
 
@@ -167,7 +167,7 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
 });
 
 // Route Accessable for All
-Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login');
+Route::get('/instructor/login', [InstructorController::class, 'InstructorLogin'])->name('instructor.login')->middleware('guest');
 
 Route::get('/course/details/{id}/{slug}', [IndexController::class, 'CourseDetails']);
 Route::get('/category/{id}/{slug}', [IndexController::class, 'CategoryCourse']);
@@ -198,6 +198,7 @@ Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
 
 Route::post('/payment', [CartController::class, 'Payment'])->name('payment');
+Route::post('/stripe/order', [CartController::class, 'StripeOrder'])->name('stripe.order');
 
 require __DIR__.'/auth.php';
 

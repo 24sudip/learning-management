@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderConfirm;
+use Stripe;
 
 class CartController extends Controller
 {
@@ -260,6 +261,58 @@ class CartController extends Controller
             );
             return redirect()->route('home.index')->with($notification);
         }
+    }
+
+    public function StripeOrder(Request $request) {
+        if (Session::has('coupon')) {
+            $total_amount = Session::get('coupon')['total_amount'];
+        } else {
+            $total_amount = round(Cart::total());
+        }
+        \Stripe\Stripe::setApiKey('sk_test_51QX3HnFv54ru9k0yuR0u07wfhLoZBaH9xnZ39ATreos5dYXA3oFgraWQgLLo5ku51bRVtHzBB4pPSOHsfqHZW5jk00j7iz0nvj');
+        $token = $_POST['stripeToken'];
+        $charge = \Stripe\Charge::create([
+            'amount' => $total_amount * 100,
+            'currency' => 'usd',
+            'description' => 'LMS subscription',
+            'source' => $token,
+            'metadata' => ['order_id' => '3434'],
+        ]);
+        $order_id = Payment::insertGetId([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'total_amount' => $total_amount,
+            'payment_type' => 'Stripe',
+            'invoice_no' => 'EOS'. mt_rand(10000000, 99999999),
+            'order_date' => Carbon::now()->format('d F Y'),
+            'order_month' => Carbon::now()->format('F'),
+            'order_year' => Carbon::now()->format('Y'),
+            'status' => 'pending',
+            'created_at' => Carbon::now()
+        ]);
+        $carts = Cart::content();
+        foreach ($carts as $cart) {
+            Order::insert([
+                'payment_id' => $order_id,
+                'user_id' => Auth::user()->id,
+                'course_id' => $cart->id,
+                'instructor_id' => $cart->options->instructor,
+                'course_title' => $cart->name,
+                'price' => $cart->price,
+                'created_at' => now()
+            ]);
+        }
+        if (Session::has('coupon')) {
+            Session::forget('coupon');
+        }
+        Cart::destroy();
+        $notification = array(
+            'message' => 'Stripe Payment Submitted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('home.index')->with($notification);
     }
 
     public function BuyToCart(Request $request, $id) {
