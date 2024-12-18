@@ -642,7 +642,7 @@
                             My question relates to
                           </h3>
                           <form method="POST" action="{{ route('user.question') }}" class="pt-4">
-                            @csrf 
+                            @csrf
                             <input type="hidden" name="course_id" value="{{ $order->course_id }}">
                             <input type="hidden" name="instructor_id" value="{{ $order->instructor_id }}">
                             <div class="custom-control-wrap">
@@ -672,7 +672,7 @@
                             class="question-overview-result-header d-flex align-items-center justify-content-between"
                           >
                             <h3 class="fs-17 font-weight-semi-bold">
-                              30 questions in this course
+                              {{ count($questions) }} questions in this course
                             </h3>
                             <button
                               class="btn theme-btn theme-btn-sm theme-btn-transparent ask-new-question-btn"
@@ -685,13 +685,14 @@
                         <div class="section-block"></div>
                         <div class="lecture-overview-item mt-0">
                           <div class="question-list-item">
+                            @foreach ($questions as $question)
                             <div class="media media-card border-bottom border-bottom-gray py-4 px-3">
                               <div
                                 class="media-img rounded-full flex-shrink-0 avatar-sm"
                               >
                                 <img
                                   class="rounded-full"
-                                  src="{{ asset('frontend/images') }}/small-avatar-1.jpg"
+                                  src="{{ (!empty($question->user->photo)) ? url('upload/user-images/'.$question->user->photo) : url('backend/assets/images/avatars/avatar-2.png') }}"
                                   alt="User image"
                                 />
                               </div>
@@ -705,51 +706,65 @@
                                       class="d-block"
                                     >
                                       <h5 class="fs-16 pb-1">
-                                        I still did't get H264 after installing
-                                        Quicktime. Please what do I do
+                                        {{ $question->subject }}
                                       </h5>
                                       <p class="text-truncate fs-15 text-gray">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna
-                                        aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation.
+                                        {{ $question->question }}
                                       </p>
                                     </a>
                                   </div>
                                   <!-- end question-meta-content -->
-                                  <div class="question-upvote-action">
-                                    <div
-                                      class="number-upvotes pb-2 d-flex align-items-center"
-                                    >
-                                      <span>1</span>
-                                      <button type="button">
-                                        <i class="la la-arrow-up"></i>
-                                      </button>
-                                    </div>
-                                    <div
-                                      class="number-upvotes question-response d-flex align-items-center"
-                                    >
-                                      <span>1</span>
-                                      <button
-                                        type="button"
-                                        class="question-replay-btn"
-                                      >
-                                        <i class="la la-comments"></i>
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <!-- end question-upvote-action -->
                                 </div>
                                 <p class="meta-tags pt-1 fs-13">
-                                  <a href="#">Alex Smith</a>
-                                  <a href="#">Lecture 20</a>
-                                  <span>3 hours ago</span>
+                                  <span>{{ Carbon\Carbon::parse($question->created_at)->diffForHumans() }}</span>
                                 </p>
                               </div>
                               <!-- end media-body -->
                             </div>
+                            @php
+                                $replies = App\Models\Question::where('parent_id', $question->id)->get();
+                            @endphp
                             <!-- end media -->
+                            @foreach ($replies as $rep)
+                            <div class="media media-card border-bottom border-bottom-gray py-4 px-3"
+                            style="background: #e6e6e6;">
+                              <div
+                                class="media-img rounded-full flex-shrink-0 avatar-sm"
+                              >
+                                <img
+                                  class="rounded-full"
+                                  src="{{ (!empty($rep->instructor->photo)) ? url('upload/instructor-images/'.$rep->instructor->photo) : url('backend/assets/images/avatars/avatar-2.png') }}"
+                                  alt="User image"
+                                />
+                              </div>
+                              <div class="media-body">
+                                <div
+                                  class="d-flex align-items-center justify-content-between"
+                                >
+                                  <div class="question-meta-content">
+                                    <a
+                                      href="javascript:void(0)"
+                                      class="d-block"
+                                    >
+                                      <h5 class="fs-16 pb-1">
+                                        {{ $rep->instructor->name }}
+                                      </h5>
+                                      <p class="text-truncate fs-15 text-gray">
+                                        {{ $rep->question }}
+                                      </p>
+                                    </a>
+                                  </div>
+                                  <!-- end question-meta-content -->
+                                </div>
+                                <p class="meta-tags pt-1 fs-13">
+                                  <span>{{ Carbon\Carbon::parse($rep->created_at)->diffForHumans() }}</span>
+                                </p>
+                              </div>
+                              <!-- end media-body -->
+                            </div>
+                            @endforeach
+                            <!-- end reply -->
+                            @endforeach
                           </div>
                           <div class="question-btn-box pt-35px text-center">
                             <button
