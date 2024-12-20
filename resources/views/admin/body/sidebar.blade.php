@@ -81,7 +81,7 @@
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"> <i class="bx bx-donate-blood"></i>
                 </div>
-                <div class="menu-title">Manage Orders</div>
+                <div class="menu-title">Order Manage</div>
             </a>
             <ul>
                 <li> <a href="{{ route('admin.pending.order') }}"><i class="bx bx-right-arrow-alt"></i>Pending Orders</a>
@@ -95,10 +95,10 @@
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class='bx bx-message-square-edit'></i>
                 </div>
-                <div class="menu-title">Forms</div>
+                <div class="menu-title">Report Manage</div>
             </a>
             <ul>
-                <li> <a href="form-elements.html"><i class="bx bx-right-arrow-alt"></i>Form Elements</a>
+                <li> <a href="{{ route('report.view') }}"><i class="bx bx-right-arrow-alt"></i>Report View</a>
                 </li>
             </ul>
         </li>

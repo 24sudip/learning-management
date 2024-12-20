@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Coupon;
+use App\Models\{Coupon, Course};
+use Illuminate\Support\Facades\Auth;
 
 class CouponController extends Controller
 {
@@ -57,5 +58,18 @@ class CouponController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    // Instructor All Coupon Method
+    public function InstructorAllCoupon() {
+        $id = Auth::user()->id;
+        $coupons = Coupon::where('instructor_id', $id)->latest()->get();
+        return view('instructor.coupon.coupon-all', compact('coupons'));
+    }
+
+    public function InstructorAddCoupon() {
+        $id = Auth::user()->id;
+        $courses = Course::where('instructor_id', $id)->get();
+        return view('instructor.coupon.coupon-add', compact('courses'));
     }
 }

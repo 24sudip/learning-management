@@ -4,7 +4,7 @@ use App\Http\Controllers\{ProfileController, AdminController, InstructorControll
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController, SettingController, OrderController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
-use App\Http\Controllers\Backend\QuestionController;
+use App\Http\Controllers\Backend\{QuestionController, ReportController};
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -109,6 +109,14 @@ Route::middleware(['auth','roles:admin'])->group(function () {
         Route::get('/pending/confirm/{id}', 'PendingToConfirm')->name('pending.confirm');
         Route::get('/admin/confirmed/order', 'AdminConfirmedOrder')->name('admin.confirmed.order');
     });
+
+    // Admin Report All Route
+    Route::controller(ReportController::class)->group(function () {
+        Route::get('/report/view', 'ReportView')->name('report.view');
+        Route::post('/search/by/date', 'SearchByDate')->name('search.by.date');
+        Route::post('/search/by/month', 'SearchByMonth')->name('search.by.month');
+        Route::post('/search/by/year', 'SearchByYear')->name('search.by.year');
+    });
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware('guest');
@@ -163,6 +171,12 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/instructor/all/question', 'InstructorAllQuestion')->name('instructor.all.question');
         Route::get('/question/details/{id}', 'QuestionDetails')->name('question.details');
         Route::post('/instructor/reply', 'InstructorReply')->name('instructor.reply');
+    });
+
+    // Instructor Coupon All Route
+    Route::controller(CouponController::class)->group(function () {
+        Route::get('/instructor/all/coupon', 'InstructorAllCoupon')->name('instructor.all.coupon');
+        Route::get('/instructor/add/coupon', 'InstructorAddCoupon')->name('instructor.add.coupon');
     });
 });
 
