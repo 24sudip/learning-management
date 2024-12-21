@@ -1,4 +1,4 @@
-<!-- Waste no more time arguing what a good man should be, be one. - Marcus Aurelius -->
+<!-- The best way to take care of the future is to take care of the present moment. - Thich Nhat Hanh -->
 @extends('instructor.instructor-dashboard')
 
 @section('instructor_content')
@@ -11,7 +11,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Instructor Add Coupon</li>
+                    <li class="breadcrumb-item active" aria-current="page">Instructor Edit Coupon</li>
                 </ol>
             </nav>
         </div>
@@ -21,32 +21,32 @@
             <div class="card-title d-flex align-items-center">
                 <div><i class="bx bxs-user me-1 font-22 text-primary"></i>
                 </div>
-                <h5 class="mb-0 text-primary">Add Coupon</h5>
+                <h5 class="mb-0 text-primary">Edit Coupon</h5>
             </div>
             <hr>
-            <form id="myForm" class="row g-3" action="{{ route('instructor.store.coupon') }}" method="POST" enctype="multipart/form-data">
+            <form id="myForm" class="row g-3" action="{{ route('instructor.update.coupon', $coupon->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Coupon Name</label>
-                    <input type="text" class="form-control" id="input1" name="coupon_name">
+                    <input type="text" class="form-control" id="input1" name="coupon_name" value="{{ $coupon->coupon_name }}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="input2" class="form-label">Coupon Discount</label>
-                    <input class="form-control" id="input2" type="number" step="0.01" name="coupon_discount">
+                    <input class="form-control" id="input2" type="number" step="0.01" name="coupon_discount" value="{{ $coupon->coupon_discount }}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="input2" class="form-label">Courses</label>
                     <select name="course_id" class="form-select mb-3" aria-label="Default select example">
                         <option selected>Open this select menu</option>
                         @foreach ($courses as $course)
-                        <option value="{{ $course->id }}">{{ $course->course_name }}</option>
+                        <option value="{{ $course->id }}" {{ $course->id == $coupon->course_id ? 'selected' : '' }}>{{ $course->course_name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="input2" class="form-label">Coupon Validity Date</label>
                     <input class="form-control" id="input2" type="date" name="coupon_validity" min="{{ Carbon\Carbon::now()
-                    ->format('Y-m-d') }}">
+                    ->format('Y-m-d') }}" value="{{ $coupon->coupon_validity }}">
                 </div>
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary px-5">Save</button>

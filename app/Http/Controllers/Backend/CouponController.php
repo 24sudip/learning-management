@@ -72,4 +72,52 @@ class CouponController extends Controller
         $courses = Course::where('instructor_id', $id)->get();
         return view('instructor.coupon.coupon-add', compact('courses'));
     }
+
+    public function InstructorStoreCoupon(Request $request) {
+        Coupon::insert([
+            'coupon_name' => strtoupper($request->coupon_name),
+            'coupon_discount' => $request->coupon_discount,
+            'coupon_validity' => $request->coupon_validity,
+            'instructor_id' => Auth::user()->id,
+            'course_id' => $request->course_id,
+            'created_at' => now()
+        ]);
+        $notification = array(
+            'message' => 'Coupon Inserted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('instructor.all.coupon')->with($notification);
+    }
+
+    public function InstructorEditCoupon($id) {
+        $coupon = Coupon::find($id);
+        $insid = Auth::user()->id;
+        $courses = Course::where('instructor_id', $insid)->get();
+        return view('instructor.coupon.coupon-edit', compact('coupon','courses'));
+    }
+
+    public function InstructorUpdateCoupon(Request $request, $id) {
+        Coupon::find($id)->update([
+            'coupon_name' => strtoupper($request->coupon_name),
+            'coupon_discount' => $request->coupon_discount,
+            'coupon_validity' => $request->coupon_validity,
+            'instructor_id' => Auth::user()->id,
+            'course_id' => $request->course_id,
+            'created_at' => now()
+        ]);
+        $notification = array(
+            'message' => 'Coupon Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('instructor.all.coupon')->with($notification);
+    }
+
+    public function InstructorDeleteCoupon($id) {
+        Coupon::find($id)->delete();
+        $notification = array(
+            'message' => 'Coupon Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }
