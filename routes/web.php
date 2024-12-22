@@ -4,7 +4,7 @@ use App\Http\Controllers\{ProfileController, AdminController, InstructorControll
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController, SettingController, OrderController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
-use App\Http\Controllers\Backend\{QuestionController, ReportController};
+use App\Http\Controllers\Backend\{QuestionController, ReportController, ReviewController};
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -218,6 +218,8 @@ Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checko
 
 Route::post('/payment', [CartController::class, 'Payment'])->name('payment');
 Route::post('/stripe/order', [CartController::class, 'StripeOrder'])->name('stripe.order');
+
+Route::post('/store/review', [ReviewController::class, 'StoreReview'])->name('store.review');
 
 require __DIR__.'/auth.php';
 
