@@ -658,92 +658,92 @@
                             <div class="feedback-wrap">
                             <div class="media media-card align-items-center">
                                 <div class="review-rating-summary">
-                                <span class="stats-average__count">4.6</span>
-                                <div class="rating-wrap pt-1">
-                                    <div class="review-stars">
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star"></span>
-                                    <span class="la la-star-half-alt"></span>
+                                    <span class="stats-average__count">{{ round($average, 1) }}</span>
+                                    <div class="rating-wrap pt-1">
+                                        <div class="review-stars">
+                                            @if ($average == 0)
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 1 || $average < 2)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 2 || $average < 3)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 3 || $average < 4)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 4 || $average < 5)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 5 || $average < 5)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            @endif
+                                        </div>
+                                        <span class="rating-total d-block">({{ count($review_count) }})</span>
+                                        <span>Course Rating</span>
                                     </div>
-                                    <span class="rating-total d-block">(2,533)</span>
-                                    <span>Course Rating</span>
-                                </div>
-                                <!-- end rating-wrap -->
+                                    <!-- end rating-wrap -->
                                 </div>
                                 <!-- end review-rating-summary -->
                                 <div class="media-body">
-                                <div class="review-bars d-flex align-items-center mb-2">
-                                    <div class="review-bars__text">5 stars</div>
-                                    <div class="review-bars__fill">
-                                    <div class="skillbar-box">
-                                        <div class="skillbar" data-percent="77%">
-                                        <div class="skillbar-bar bg-3"></div>
+                                    @php
+                                        $reviewCount = App\Models\Review::where('course_id', $course->id)->where('status', 1)
+                                        ->select('rating', DB::raw('count(*) as count'))->groupBy('rating')
+                                        ->orderBy('rating','desc')->get();
+                                        $total_reviews = $reviewCount->sum('count');
+                                        $percentage = [];
+                                        for ($i = 5; $i >= 1; $i--) {
+                                            $ratingCount = $reviewCount->where('rating', $i)->first();
+                                            $count = $ratingCount ? $ratingCount->count : 0;
+                                            $percent = $total_reviews > 0 ? ($count / $total_reviews) * 100 : 0;
+                                            $percentage[] = [
+                                                'rating' => $i,
+                                                'percent' => $percent,
+                                                'count' => $count
+                                            ];
+                                        }
+                                    @endphp
+
+                                    @if (count($percentage) > 0)
+                                        @foreach ($percentage as $ratingInfo)
+                                        <div class="review-bars d-flex align-items-center mb-2">
+                                            <div class="review-bars__text">{{ $ratingInfo['rating'] }} stars</div>
+                                            <div class="review-bars__fill">
+                                                <div class="skillbar-box">
+                                                    <div class="skillbar" data-percent="{{ $ratingInfo['percent'] }}%">
+                                                        <div class="skillbar-bar bg-3" style="width: {{ $ratingInfo['percent'] }}%;"></div>
+                                                    </div>
+                                                    <!-- End Skill Bar -->
+                                                </div>
+                                            </div>
+                                            <!-- end review-bars__fill -->
+                                            <div class="review-bars__percent">{{ number_format($ratingInfo['percent'], 2) }} %</div>
                                         </div>
-                                        <!-- End Skill Bar -->
-                                    </div>
-                                    </div>
-                                    <!-- end review-bars__fill -->
-                                    <div class="review-bars__percent">77%</div>
-                                </div>
-                                <!-- end review-bars -->
-                                <div class="review-bars d-flex align-items-center mb-2">
-                                    <div class="review-bars__text">4 stars</div>
-                                    <div class="review-bars__fill">
-                                    <div class="skillbar-box">
-                                        <div class="skillbar" data-percent="54%">
-                                        <div class="skillbar-bar bg-3"></div>
-                                        </div>
-                                        <!-- End Skill Bar -->
-                                    </div>
-                                    </div>
-                                    <!-- end review-bars__fill -->
-                                    <div class="review-bars__percent">54%</div>
-                                </div>
-                                <!-- end review-bars -->
-                                <div class="review-bars d-flex align-items-center mb-2">
-                                    <div class="review-bars__text">3 stars</div>
-                                    <div class="review-bars__fill">
-                                    <div class="skillbar-box">
-                                        <div class="skillbar" data-percent="14%">
-                                        <div class="skillbar-bar bg-3"></div>
-                                        </div>
-                                        <!-- End Skill Bar -->
-                                    </div>
-                                    </div>
-                                    <!-- end review-bars__fill -->
-                                    <div class="review-bars__percent">14%</div>
-                                </div>
-                                <!-- end review-bars -->
-                                <div class="review-bars d-flex align-items-center mb-2">
-                                    <div class="review-bars__text">2 stars</div>
-                                    <div class="review-bars__fill">
-                                    <div class="skillbar-box">
-                                        <div class="skillbar" data-percent="5%">
-                                        <div class="skillbar-bar bg-3"></div>
-                                        </div>
-                                        <!-- End Skill Bar -->
-                                    </div>
-                                    </div>
-                                    <!-- end review-bars__fill -->
-                                    <div class="review-bars__percent">5%</div>
-                                </div>
-                                <!-- end review-bars -->
-                                <div class="review-bars d-flex align-items-center mb-2">
-                                    <div class="review-bars__text">1 stars</div>
-                                    <div class="review-bars__fill">
-                                    <div class="skillbar-box">
-                                        <div class="skillbar" data-percent="2%">
-                                        <div class="skillbar-bar bg-3"></div>
-                                        </div>
-                                        <!-- End Skill Bar -->
-                                    </div>
-                                    </div>
-                                    <!-- end review-bars__fill -->
-                                    <div class="review-bars__percent">2%</div>
-                                </div>
-                                <!-- end review-bars -->
+                                        <!-- end review-bars -->
+                                        @endforeach
+                                    @else
+                                    <p>No Reviews Available</p>
+                                    @endif
                                 </div>
                                 <!-- end media-body -->
                             </div>
