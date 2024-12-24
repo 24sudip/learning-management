@@ -55,6 +55,11 @@
                                     </div>
                                 </div>
                                 <!-- end card-image -->
+                                @php
+                                $review_count = App\Models\Review::where('course_id', $course->id)->where('status', 1)->latest()
+                                ->get();
+                                $average = App\Models\Review::where('course_id', $course->id)->where('status', 1)->avg('rating');
+                                @endphp
                                 <div class="card-body">
                                     <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">
                                         {{ $course->label }}
@@ -67,14 +72,46 @@
                                     </p>
                                     <div class="rating-wrap d-flex align-items-center py-2">
                                         <div class="review-stars">
-                                            <span class="rating-number">4.4</span>
+                                            <span class="rating-number">{{ round($average, 1) }}</span>
+                                            @if ($average == 0)
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 1 || $average < 2)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 2 || $average < 3)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 3 || $average < 4)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star-o"></span>
+                                            <span class="la la-star-o"></span>
+                                            @elseif ($average == 4 || $average < 5)
                                             <span class="la la-star"></span>
                                             <span class="la la-star"></span>
                                             <span class="la la-star"></span>
                                             <span class="la la-star"></span>
                                             <span class="la la-star-o"></span>
+                                            @elseif ($average == 5 || $average < 5)
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            <span class="la la-star"></span>
+                                            @endif
                                         </div>
-                                        <span class="rating-total ps-1">(20,230)</span>
+                                        <span class="rating-total ps-1">({{ count($review_count) }})</span>
                                     </div>
                                     <!-- end rating-wrap -->
                                     <div class="d-flex justify-content-between align-items-center">
