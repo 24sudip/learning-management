@@ -67,18 +67,16 @@
             <ul>
                 <li> <a href="{{ route('instructor.all.coupon') }}"><i class="bx bx-right-arrow-alt"></i>All Coupon</a>
                 </li>
-                <li> <a href="component-accordions.html"><i class="bx bx-right-arrow-alt"></i>Accordions</a>
-                </li>
             </ul>
         </li>
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class="bx bx-repeat"></i>
                 </div>
-                <div class="menu-title">Content</div>
+                <div class="menu-title">Review Manage</div>
             </a>
             <ul>
-                <li> <a href="content-grid-system.html"><i class="bx bx-right-arrow-alt"></i>Grid System</a>
+                <li> <a href="{{ route('instructor.all.review') }}"><i class="bx bx-right-arrow-alt"></i>All Review</a>
                 </li>
             </ul>
         </li>

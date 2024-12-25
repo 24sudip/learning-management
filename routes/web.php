@@ -4,7 +4,7 @@ use App\Http\Controllers\{ProfileController, AdminController, InstructorControll
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController, SettingController, OrderController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
-use App\Http\Controllers\Backend\{QuestionController, ReportController, ReviewController};
+use App\Http\Controllers\Backend\{QuestionController, ReportController, ReviewController, ActiveUserController};
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -117,6 +117,18 @@ Route::middleware(['auth','roles:admin'])->group(function () {
         Route::post('/search/by/month', 'SearchByMonth')->name('search.by.month');
         Route::post('/search/by/year', 'SearchByYear')->name('search.by.year');
     });
+
+    // Admin Review All Route
+    Route::controller(ReviewController::class)->group(function () {
+        Route::get('/admin/pending/review', 'AdminPendingReview')->name('admin.pending.review');
+        Route::post('/update/review/status', 'UpdateReviewStatus')->name('update.review.status');
+        Route::get('/admin/active/review', 'AdminActiveReview')->name('admin.active.review');
+    });
+
+    // Admin All User And Instructor All Route
+    Route::controller(ActiveUserController::class)->group(function () {
+        Route::get('/all/user', 'AllUser')->name('all.user');
+    });
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware('guest');
@@ -181,6 +193,11 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
         Route::get('/instructor/edit/coupon/{id}', 'InstructorEditCoupon')->name('instructor.edit.coupon');
         Route::post('/instructor/update/coupon/{id}', 'InstructorUpdateCoupon')->name('instructor.update.coupon');
         Route::get('/instructor/delete/coupon/{id}', 'InstructorDeleteCoupon')->name('instructor.delete.coupon');
+    });
+
+    // Instructor Review All Route
+    Route::controller(ReviewController::class)->group(function () {
+        Route::get('/instructor/all/review', 'InstructorAllReview')->name('instructor.all.review');
     });
 });
 

@@ -106,12 +106,12 @@
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class="bx bx-grid-alt"></i>
                 </div>
-                <div class="menu-title">Tables</div>
+                <div class="menu-title">Review Manage</div>
             </a>
             <ul>
-                <li> <a href="table-basic-table.html"><i class="bx bx-right-arrow-alt"></i>Basic Table</a>
+                <li> <a href="{{ route('admin.pending.review') }}"><i class="bx bx-right-arrow-alt"></i>Pending Review</a>
                 </li>
-                <li> <a href="table-datatable.html"><i class="bx bx-right-arrow-alt"></i>Data Table</a>
+                <li> <a href="{{ route('admin.active.review') }}"><i class="bx bx-right-arrow-alt"></i>Active Review</a>
                 </li>
             </ul>
         </li>
@@ -120,12 +120,12 @@
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><i class="bx bx-lock"></i>
                 </div>
-                <div class="menu-title">Authentication</div>
+                <div class="menu-title">All User Manage</div>
             </a>
             <ul>
-                <li> <a href="authentication-signin.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>Sign In</a>
+                <li> <a href="{{ route('all.user') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>All User</a>
                 </li>
-                <li> <a href="authentication-signup.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>Sign Up</a>
+                <li> <a href="authentication-signup.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>All Instructor</a>
                 </li>
             </ul>
         </li>
