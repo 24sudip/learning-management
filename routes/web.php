@@ -4,7 +4,7 @@ use App\Http\Controllers\{ProfileController, AdminController, InstructorControll
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController, SettingController, OrderController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
-use App\Http\Controllers\Backend\{QuestionController, ReportController, ReviewController, ActiveUserController};
+use App\Http\Controllers\Backend\{QuestionController, ReportController, ReviewController, ActiveUserController, BlogController};
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -128,6 +128,13 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     // Admin All User And Instructor All Route
     Route::controller(ActiveUserController::class)->group(function () {
         Route::get('/all/user', 'AllUser')->name('all.user');
+        Route::get('/all/instructor', 'AllInstructor')->name('all.instructor');
+    });
+
+    //
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/blog/category', 'AllBlogCategory')->name('blog.category');
+        Route::post('/blog/category/store', 'StoreBlogCategory')->name('blog.category.store');
     });
 });
 

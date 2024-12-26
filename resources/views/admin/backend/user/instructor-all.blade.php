@@ -1,4 +1,4 @@
-<!-- Simplicity is the essence of happiness. - Cedric Bledsoe -->
+<!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
 @extends('admin.admin-dashboard')
 
 @section('admin_content')
@@ -10,7 +10,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">All User</li>
+                    <li class="breadcrumb-item active" aria-current="page">All Instructor</li>
                 </ol>
             </nav>
         </div>
@@ -39,7 +39,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>
-                                <img src="{{ (!empty($user->photo)) ? url('upload/user-images/'.$user->photo) : url('backend/assets/images/avatars/avatar-2.png') }}" style="width: 70px;">
+                                <img src="{{ (!empty($user->photo)) ? url('upload/instructor-images/'.$user->photo) : url('backend/assets/images/avatars/avatar-2.png') }}" style="width: 70px;">
                             </td>
                             <td>{{ $user->name }}</td>
                             <td>

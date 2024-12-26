@@ -123,9 +123,22 @@
                 <div class="menu-title">All User Manage</div>
             </a>
             <ul>
-                <li> <a href="{{ route('all.user') }}" target="_blank"><i class="bx bx-right-arrow-alt"></i>All User</a>
+                <li> <a href="{{ route('all.user') }}"><i class="bx bx-right-arrow-alt"></i>All User</a>
                 </li>
-                <li> <a href="authentication-signup.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>All Instructor</a>
+                <li> <a href="{{ route('all.instructor') }}"><i class="bx bx-right-arrow-alt"></i>All Instructor</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class="bx bx-error"></i>
+                </div>
+                <div class="menu-title">Blog Manage</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('blog.category') }}"><i class="bx bx-right-arrow-alt"></i>Blog Category</a>
+                </li>
+                <li> <a href="errors-500-error.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>500 Error</a>
                 </li>
             </ul>
         </li>
@@ -142,19 +155,6 @@
                 </div>
                 <div class="menu-title">Timeline</div>
             </a>
-        </li>
-        <li>
-            <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon"><i class="bx bx-error"></i>
-                </div>
-                <div class="menu-title">Errors</div>
-            </a>
-            <ul>
-                <li> <a href="errors-404-error.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>404 Error</a>
-                </li>
-                <li> <a href="errors-500-error.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>500 Error</a>
-                </li>
-            </ul>
         </li>
         <li>
             <a href="faq.html">
