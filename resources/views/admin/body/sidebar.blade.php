@@ -138,7 +138,7 @@
             <ul>
                 <li> <a href="{{ route('blog.category') }}"><i class="bx bx-right-arrow-alt"></i>Blog Category</a>
                 </li>
-                <li> <a href="errors-500-error.html" target="_blank"><i class="bx bx-right-arrow-alt"></i>500 Error</a>
+                <li> <a href="{{ route('blog.post') }}"><i class="bx bx-right-arrow-alt"></i>Blog Post</a>
                 </li>
             </ul>
         </li>

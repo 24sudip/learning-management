@@ -131,10 +131,19 @@ Route::middleware(['auth','roles:admin'])->group(function () {
         Route::get('/all/instructor', 'AllInstructor')->name('all.instructor');
     });
 
-    //
+    // Blog Category
     Route::controller(BlogController::class)->group(function () {
         Route::get('/blog/category', 'AllBlogCategory')->name('blog.category');
         Route::post('/blog/category/store', 'StoreBlogCategory')->name('blog.category.store');
+        Route::get('/edit/blog/category/{id}', 'EditBlogCategory');
+        Route::post('/blog/category/update', 'UpdateBlogCategory')->name('blog.category.update');
+        Route::get('/delete/blog/category/{id}', 'DeleteBlogCategory')->name('delete.blog.category');
+    });
+
+    // Blog Post
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/blog/post', 'AllBlogPost')->name('blog.post');
+        Route::get('/add/blog/post', 'AddBlogPost')->name('add.blog.post');
     });
 });
 
