@@ -144,6 +144,10 @@ Route::middleware(['auth','roles:admin'])->group(function () {
     Route::controller(BlogController::class)->group(function () {
         Route::get('/blog/post', 'AllBlogPost')->name('blog.post');
         Route::get('/add/blog/post', 'AddBlogPost')->name('add.blog.post');
+        Route::post('/store/blog/post', 'StoreBlogPost')->name('store.blog.post');
+        Route::get('/edit/blog/post/{id}', 'EditBlogPost')->name('edit.blog.post');
+        Route::post('/update/blog/post/{id}', 'UpdateBlogPost')->name('update.blog.post');
+        Route::get('/delete/blog/post/{id}', 'DeleteBlogPost')->name('delete.blog.post');
     });
 });
 
@@ -253,6 +257,7 @@ Route::post('/payment', [CartController::class, 'Payment'])->name('payment');
 Route::post('/stripe/order', [CartController::class, 'StripeOrder'])->name('stripe.order');
 
 Route::post('/store/review', [ReviewController::class, 'StoreReview'])->name('store.review');
+Route::get('/blog/details/{slug}', [BlogController::class, 'BlogDetails']);
 
 require __DIR__.'/auth.php';
 

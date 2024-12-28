@@ -39,13 +39,13 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $blog_post->post_title }}</td>
-                            <td>{{ $blog_post->blog_category_id }}</td>
+                            <td>{{ $blog_post->blog_category->category_name }}</td>
                             <td>
                                 <img src="{{ asset($blog_post->post_image) }}" style="width: 70px;">
                             </td>
                             <td>
-                                <a href="{{ route('edit.category', $blog_post->id) }}" class="btn btn-info px-5">Edit</a>
-                                <a href="{{ route('delete.category', $blog_post->id) }}" class="btn btn-danger px-5" id="delete">Delete</a>
+                                <a href="{{ route('edit.blog.post', $blog_post->id) }}" class="btn btn-info px-5">Edit</a>
+                                <a href="{{ route('delete.blog.post', $blog_post->id) }}" class="btn btn-danger px-5" id="delete">Delete</a>
                             </td>
                         </tr>
                         @endforeach

@@ -1,4 +1,4 @@
-<!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
+<!-- Order your soul. Reduce your wants. - Augustine -->
 @extends('admin.admin-dashboard')
 
 @section('admin_content')
@@ -11,7 +11,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Add Blog Post</li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Blog Post</li>
                 </ol>
             </nav>
         </div>
@@ -21,38 +21,38 @@
             <div class="card-title d-flex align-items-center">
                 <div><i class="bx bxs-user me-1 font-22 text-primary"></i>
                 </div>
-                <h5 class="mb-0 text-primary">Add Blog Post</h5>
+                <h5 class="mb-0 text-primary">Edit Blog Post</h5>
             </div>
             <hr>
-            <form id="myForm" class="row g-3" action="{{ route('store.blog.post') }}" method="POST" enctype="multipart/form-data">
+            <form id="myForm" class="row g-3" action="{{ route('update.blog.post', $blog_post->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group col-md-6">
                     <label for="input2" class="form-label">Blog Category</label>
                     <select name="blog_category_id" class="form-select mb-3" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
+                        <option>Open this select menu</option>
                         @foreach ($blog_categories as $blog_category)
-                        <option value="{{ $blog_category->id }}">{{ $blog_category->category_name }}</option>
+                        <option value="{{ $blog_category->id }}" {{ $blog_category->id == $blog_post->blog_category_id ? 'selected' : '' }}>{{ $blog_category->category_name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Title</label>
-                    <input type="text" class="form-control" id="input1" name="post_title">
+                    <input type="text" class="form-control" id="input1" name="post_title" value="{{ $blog_post->post_title }}">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="inputFirstName" class="form-label">Post Description</label>
-                    <textarea name="long_description" class="form-control" id="myeditorinstance"></textarea>
+                    <textarea name="long_description" class="form-control" id="myeditorinstance">{!! $blog_post->long_description !!}</textarea>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="image" class="form-label">Post Image</label>
                     <input class="form-control" type="file" id="image" name="post_image">
                 </div>
                 <div class="col-md-6">
-                    <img src="{{ asset('backend/assets/images/gallery/04.png') }}" alt="Admin" class="p-1 bg-primary" width="80" id="showImage">
+                    <img src="{{ asset($blog_post->post_image) }}" alt="Admin" class="p-1 bg-primary" width="80" id="showImage">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="input1" class="form-label">Post Tags</label>
-                    <input type="text" name="post_tags" class="form-control" data-role="tagsinput" value="jQuery">
+                    <input type="text" name="post_tags" class="form-control" data-role="tagsinput" value="{{ $blog_post->post_tags }}">
                 </div>
                 <div class="col-md-6"></div>
                 <div class="col-12">
