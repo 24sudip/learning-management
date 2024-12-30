@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Category, SubCategory, Course, CourseGoal, CourseSection, CourseLecture, Coupon, Payment, Order};
+use App\Models\{Category, SubCategory, Course, CourseGoal, CourseSection, CourseLecture, Coupon, Payment, Order, User};
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Auth;
@@ -212,6 +212,7 @@ class CartController extends Controller
     }
 
     public function Payment(Request $request) {
+        $users = User::where('role','instructor')->get();
         if (Session::has('coupon')) {
             $total_amount = Session::get('coupon')['total_amount'];
         } else {
