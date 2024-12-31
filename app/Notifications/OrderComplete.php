@@ -14,9 +14,9 @@ class OrderComplete extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($name)
     {
-        //
+        $this->name = $name;
     }
 
     /**
@@ -26,7 +26,7 @@ class OrderComplete extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -48,7 +48,7 @@ class OrderComplete extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'message' => 'New Cash On Delivery Enrollment In Course'
         ];
     }
 }

@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderConfirm;
 use Stripe;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\OrderComplete;
 
 class CartController extends Controller
 {
@@ -278,6 +280,10 @@ class CartController extends Controller
                 'email' => $sendmail->email
             ];
             Mail::to($request->email)->send(new OrderConfirm($data));
+
+            // Send Notification
+            Notification::send($users, new OrderComplete($request->name));
+
             $notification = array(
                 'message' => 'Cash Payment Submitted Successfully',
                 'alert-type' => 'success'
@@ -376,5 +382,14 @@ class CartController extends Controller
             ]);
         }
         return response()->json(['success' => 'Successfully Added On Your Cart']);
+    }
+
+    public function MarkAsRead(Request $request, $notificationId) {
+        $user = Auth::user();
+        $notification = $user->notifications()->where('id', $notificationId)->first();
+        if ($notification) {
+            $notification->markAsRead();
+        }
+        return response()->json(['count' => $user->unreadNotifications()->count()]);
     }
 }
