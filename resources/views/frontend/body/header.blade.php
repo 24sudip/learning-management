@@ -1,5 +1,8 @@
 <!-- Act only according to that maxim whereby you can, at the same time, will that it should become a universal law. - Immanuel Kant -->
 <header class="header-menu-area bg-white">
+    @php
+        $site_setting = App\Models\SiteSetting::first();
+    @endphp
     <div class="header-top pe-150px ps-150px border-bottom border-bottom-gray py-1">
         <div class="container-fluid">
             <div class="row align-items-center">
@@ -8,11 +11,11 @@
                         <ul class="generic-list-item d-flex flex-wrap align-items-center fs-14">
                             <li class="d-flex align-items-center pe-3 me-3 border-right border-right-gray">
                                 <i class="la la-phone me-1"></i
-                                ><a href="tel:00123456789"> (00) 123 456 789</a>
+                                ><a href="tel:00123456789">{{ $site_setting->phone }}</a>
                             </li>
                             <li class="d-flex align-items-center">
                                 <i class="la la-envelope-o me-1"></i
-                                ><a href="mailto:contact@aduca.com"> contact@aduca.com</a>
+                                ><a href="mailto:{{ $site_setting->email }}"> {{ $site_setting->email }}</a>
                             </li>
                         </ul>
                     </div>
@@ -104,7 +107,7 @@
               <div class="col-lg-2">
                 <div class="logo-box">
                   <a href="{{ url('/') }}" class="logo"
-                    ><img src="{{ asset('frontend/images') }}/logo.png" alt="logo"
+                    ><img src="{{ asset($site_setting->logo) }}" alt="logo"
                   /></a>
                   <div class="user-btn-action">
                     <div

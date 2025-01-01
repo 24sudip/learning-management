@@ -1,32 +1,35 @@
 <!-- Always remember that you are absolutely unique. Just like everyone else. - Margaret Mead -->
 <section class="footer-area pt-100px">
+    @php
+        $site_setting = App\Models\SiteSetting::first();
+    @endphp
     <div class="container">
         <div class="row">
           <div class="col-lg-3 responsive-column-half">
             <div class="footer-item">
               <a href="index.html">
                 <img
-                  src="{{ asset('frontend/images') }}/logo.png"
+                  src="{{ asset($site_setting->logo) }}"
                   alt="footer logo"
                   class="footer__logo"
                 />
               </a>
               <ul class="generic-list-item pt-4">
-                <li><a href="tel:+1631237884">+163 123 7884</a></li>
+                <li><a href="tel:+1631237884">{{ $site_setting->phone }}</a></li>
                 <li>
-                  <a href="mailto:support@wbsite.com">support@website.com</a>
+                  <a href="mailto:support@wbsite.com">{{ $site_setting->email }}</a>
                 </li>
-                <li>Melbourne, Australia, 105 South Park Avenue</li>
+                <li>{{ $site_setting->address }}</li>
               </ul>
               <h3 class="fs-20 font-weight-semi-bold pt-4 pb-2">We are on</h3>
               <ul class="social-icons social-icons-styled">
                 <li class="me-1">
-                  <a href="#" class="facebook-bg"
+                  <a href="{{ $site_setting->facebook }}" class="facebook-bg"
                     ><i class="la la-facebook"></i
                   ></a>
                 </li>
                 <li class="me-1">
-                  <a href="#" class="twitter-bg"
+                  <a href="{{ $site_setting->twitter }}" class="twitter-bg"
                     ><i class="la la-twitter"></i
                   ></a>
                 </li>
@@ -112,8 +115,7 @@
           <div class="row align-items-center">
             <div class="col-lg-6">
               <p class="copy-desc">
-                &copy; 2021 Aduca. All Rights Reserved. by
-                <a href="https://techydevs.com/">TechyDevs</a>
+                &copy; {{ $site_setting->copyright }}
               </p>
             </div>
             <!-- end col-lg-6 -->

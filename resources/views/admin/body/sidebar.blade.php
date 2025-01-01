@@ -75,6 +75,8 @@
             <ul>
                 <li> <a href="{{ route('smtp.setting') }}"><i class="bx bx-right-arrow-alt"></i>SMTP Manage</a>
                 </li>
+                <li> <a href="{{ route('site.setting') }}"><i class="bx bx-right-arrow-alt"></i>Site Setting</a>
+                </li>
             </ul>
         </li>
         <li>
