@@ -2,6 +2,9 @@
 @extends('frontend.master')
 
 @section('home_content')
+    @section('title')
+    {{ $blog_post->post_title }} | Easy Learning
+    @endsection
     <!-- ================================
     START BREADCRUMB AREA
 ================================= -->

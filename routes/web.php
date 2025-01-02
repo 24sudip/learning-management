@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController, SettingController, OrderController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
 use App\Http\Controllers\Backend\{QuestionController, ReportController, ReviewController, ActiveUserController, BlogController};
+use App\Http\Controllers\Backend\RoleController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -154,6 +155,11 @@ Route::middleware(['auth','roles:admin'])->group(function () {
         Route::get('/edit/blog/post/{id}', 'EditBlogPost')->name('edit.blog.post');
         Route::post('/update/blog/post/{id}', 'UpdateBlogPost')->name('update.blog.post');
         Route::get('/delete/blog/post/{id}', 'DeleteBlogPost')->name('delete.blog.post');
+    });
+
+    // Permission All Route
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/all/permission', 'AllPermission')->name('all.permission');
     });
 });
 

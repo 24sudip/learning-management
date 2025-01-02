@@ -2,6 +2,9 @@
 @extends('frontend.master')
 
 @section('home_content')
+    @section('title')
+    Login Page | Easy Learning
+    @endsection
 <!-- ================================
 START BREADCRUMB AREA
 ================================= -->
