@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Exports\PermissionExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\PermissionImport;
 
 class RoleController extends Controller
 {
@@ -54,5 +57,42 @@ class RoleController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    public function ImportPermission() {
+        return view('admin.backend.pages.permission.import-permission');
+    }
+
+    public function Export() {
+        return Excel::download(new PermissionExport, 'Permission.xlsx');
+    }
+
+    public function Import(Request $request) {
+        Excel::import(new PermissionImport, $request->file('import_file'));
+        $notification = array(
+            'message' => 'Permission Imported Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function AllRoles() {
+        $roles = Role::all();
+        return view('admin.backend.pages.roles.all-roles', compact('roles'));
+    }
+
+    public function AddRoles() {
+        return view('admin.backend.pages.roles.add-roles');
+    }
+
+    public function StoreRoles(Request $request) {
+        Role::create([
+            'name' => $request->name,
+        ]);
+        $notification = array(
+            'message' => 'Role Created Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.roles')->with($notification);
     }
 }
