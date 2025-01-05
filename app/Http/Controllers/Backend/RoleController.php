@@ -9,6 +9,7 @@ use Spatie\Permission\Models\Permission;
 use App\Exports\PermissionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\PermissionImport;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -94,5 +95,37 @@ class RoleController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('all.roles')->with($notification);
+    }
+
+    public function EditRoles($id) {
+        $role = Role::find($id);
+        return view('admin.backend.pages.roles.edit-roles', compact('role'));
+    }
+
+    public function UpdateRoles(Request $request, $id) {
+        Role::find($id)->update([
+            'name' => $request->name,
+        ]);
+        $notification = array(
+            'message' => 'Role Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.roles')->with($notification);
+    }
+
+    public function DeleteRoles($id) {
+        Role::find($id)->delete();
+        $notification = array(
+            'message' => 'Role Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    // Add Roles Permission All Method
+    public function AddRolesPermission() {
+        $roles = Role::all();
+        $permission_groups = User::getPermissionGroups();
+        return view('admin.backend.pages.role-setup.add-roles-permission', compact('roles','permission_groups'));
     }
 }

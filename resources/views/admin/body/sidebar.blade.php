@@ -155,6 +155,8 @@
                 </li>
                 <li> <a href="{{ route('all.roles') }}"><i class="bx bx-right-arrow-alt"></i>All Role</a>
                 </li>
+                <li> <a href="{{ route('add.roles.permission') }}"><i class="bx bx-right-arrow-alt"></i>Role In Permission</a>
+                </li>
                 <li> <a href="charts-chartjs.html"><i class="bx bx-right-arrow-alt"></i>Chartjs</a>
                 </li>
             </ul>
