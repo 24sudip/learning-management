@@ -3,6 +3,11 @@
 
 @section('admin_content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+    .form-check-label {
+        text-transform: capitalize;
+    }
+</style>
 <div class="page-content">
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -24,20 +29,20 @@
                 </div>
             </div>
             <hr>
-            <form id="myForm" class="row g-3" action="{{ route('store.permission') }}" method="POST" enctype="multipart/form-data">
+            <form id="myForm" class="row g-3" action="{{ route('role.permission.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group col-md-6">
                     <label for="inputFirstName" class="form-label">Roles Name</label>
-                    <select class="form-select mb-3" aria-label="Default select example" name="group_name">
+                    <select class="form-select mb-3" aria-label="Default select example" name="role_id">
                         <option selected disabled>Open Roles</option>
                         @foreach ($roles as $role)
-                        <option value="Category">{{ $role->name }}</option>
+                        <option value="{{ $role->id }}">{{ $role->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">Permission All</label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckMain">
+                    <label class="form-check-label" for="flexCheckMain">Permission All</label>
                 </div>
                 <hr>
                 @foreach ($permission_groups as $group)
@@ -49,10 +54,17 @@
                         </div>
                     </div>
                     <div class="col-9">
+                        @php
+                            $permissions = App\Models\User::getPermissionByGroupName($group->group_name);
+                        @endphp
+
+                        @foreach ($permissions as $permission)
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">Default checkbox</label>
+                            <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $permission->id }}" id="checkDefault{{ $permission->id }}">
+                            <label class="form-check-label" for="checkDefault{{ $permission->id }}">{{ $permission->name }}</label>
                         </div>
+                        @endforeach
+                        <br>
                     </div>
                 </div>
                 @endforeach
@@ -67,26 +79,14 @@
     $(document).ready(function (){
         $('#myForm').validate({
             rules: {
-                name: {
+                role_id: {
                     required : true,
                 },
-                group_name: {
-                    required : true,
-                },
-                // field_name: {
-                //     required : true,
-                // },
             },
             messages :{
-                name: {
-                    required : 'Please Enter Permission Name',
+                role_id: {
+                    required : 'Please Enter Role Id',
                 },
-                group_name: {
-                    required : 'Please Enter Group Name',
-                },
-                // field_name: {
-                //     required : 'Please Enter FieldName',
-                // },
             },
             errorElement : 'span',
             errorPlacement: function (error,element) {
@@ -100,6 +100,15 @@
                 $(element).removeClass('is-invalid');
             },
         });
+    });
+</script>
+<script>
+    $('#flexCheckMain').click(function () {
+        if ($(this).is(':checked')) {
+            $('input[type="checkbox"]').prop('checked', true);
+        } else {
+            $('input[type="checkbox"]').prop('checked', false);
+        }
     });
 </script>
 @endsection
