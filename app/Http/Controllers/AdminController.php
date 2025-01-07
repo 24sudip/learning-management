@@ -154,4 +154,10 @@ class AdminController extends Controller
         $course = Course::find($id);
         return view('admin.backend.courses.course-details', compact('course'));
     }
+
+    // Admin User All Method
+    public function AllAdmin() {
+        $all_admin = User::where('role','admin')->get();
+        return view('admin.backend.pages.admin-user.all-admin', compact('all_admin'));
+    }
 }

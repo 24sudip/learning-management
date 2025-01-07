@@ -157,7 +157,21 @@
                 </li>
                 <li> <a href="{{ route('add.roles.permission') }}"><i class="bx bx-right-arrow-alt"></i>Role In Permission</a>
                 </li>
-                <li> <a href="charts-chartjs.html"><i class="bx bx-right-arrow-alt"></i>Chartjs</a>
+                <li>
+                    <a href="{{ route('all.roles.permission') }}"><i class="bx bx-right-arrow-alt"></i>All Roles In Permission</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="javascript:;">
+                <div class="parent-icon"><i class="bx bx-map-alt"></i>
+                </div>
+                <div class="menu-title">Admin Manage</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('all.admin') }}"><i class="bx bx-right-arrow-alt"></i>All Admin</a>
+                </li>
+                <li> <a href="map-vector-maps.html"><i class="bx bx-right-arrow-alt"></i>Vector Maps</a>
                 </li>
             </ul>
         </li>
@@ -190,19 +204,6 @@
             </a>
         </li>
         <li class="menu-label">Charts & Maps</li>
-        <li>
-            <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon"><i class="bx bx-map-alt"></i>
-                </div>
-                <div class="menu-title">Maps</div>
-            </a>
-            <ul>
-                <li> <a href="map-google-maps.html"><i class="bx bx-right-arrow-alt"></i>Google Maps</a>
-                </li>
-                <li> <a href="map-vector-maps.html"><i class="bx bx-right-arrow-alt"></i>Vector Maps</a>
-                </li>
-            </ul>
-        </li>
         <li class="menu-label">Others</li>
         <li>
             <a class="has-arrow" href="javascript:;">
