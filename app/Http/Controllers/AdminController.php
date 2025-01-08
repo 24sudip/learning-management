@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{User, Course};
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -159,5 +160,34 @@ class AdminController extends Controller
     public function AllAdmin() {
         $all_admin = User::where('role','admin')->get();
         return view('admin.backend.pages.admin-user.all-admin', compact('all_admin'));
+    }
+
+    public function AddAdmin() {
+        $roles = Role::all();
+        return view('admin.backend.pages.admin-user.add-admin', compact('roles'));
+    }
+
+    public function StoreAdmin(Request $request) {
+        $user = new User();
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->password = Hash::make($request->password);
+        $user->role = 'admin';
+        $user->status = '1';
+        $user->save();
+
+        if ($request->roles) {
+            $role = Role::findById($request->roles);
+            $user->assignRole($role);
+        }
+
+        $notification = array(
+            'message' => 'New Admin Inserted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('all.admin')->with($notification);
     }
 }
