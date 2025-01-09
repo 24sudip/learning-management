@@ -52,8 +52,8 @@
                                 @endforeach
                             </td>
                             <td>
-                                <a href="{{ route('edit.permission', $user->id) }}" class="btn btn-info px-5">Edit</a>
-                                <a href="{{ route('delete.permission', $user->id) }}" class="btn btn-danger px-5" id="delete">Delete</a>
+                                <a href="{{ route('edit.admin', $user->id) }}" class="btn btn-info px-5">Edit</a>
+                                <a href="{{ route('delete.admin', $user->id) }}" class="btn btn-danger px-5" id="delete">Delete</a>
                             </td>
                         </tr>
                         @endforeach

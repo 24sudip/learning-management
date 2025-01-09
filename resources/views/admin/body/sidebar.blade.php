@@ -19,6 +19,7 @@
                 <div class="menu-title">Dashboard</div>
             </a>
         </li>
+        @if (Auth::user()->can('category-menu'))
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-home-circle'></i>
@@ -26,12 +27,20 @@
                 <div class="menu-title">Category Manage</div>
             </a>
             <ul>
+                @if (Auth::user()->can('category-all'))
                 <li> <a href="{{ route('all.category') }}"><i class="bx bx-right-arrow-alt"></i>All Category</a>
                 </li>
+                @endif
+
+                @if (Auth::user()->can('subcategory-all'))
                 <li> <a href="{{ route('all.subcategory') }}"><i class="bx bx-right-arrow-alt"></i>All SubCategory</a>
                 </li>
+                @endif
             </ul>
         </li>
+        @endif
+
+        @if (Auth::user()->can('instructor-menu'))
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -43,6 +52,7 @@
                 </li>
             </ul>
         </li>
+        @endif
         <li class="menu-label">UI Elements</li>
         <li>
             <a href="javascript:;" class="has-arrow">
