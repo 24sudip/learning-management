@@ -23,6 +23,9 @@
             </div>
           </div>
           <!-- end media -->
+          <div id="app">
+            <send-message></send-message>
+          </div>
           <ul class="social-icons social-icons-styled social--icons-styled">
             <li>
               <a href="#"><i class="la la-facebook"></i></a>
