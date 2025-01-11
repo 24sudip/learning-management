@@ -2,6 +2,9 @@
 @extends('frontend.master')
 
 @section('home_content')
+    @section('title')
+    {{ $instructor->name }} | Easy Learning
+    @endsection
     <!-- ================================
     START BREADCRUMB AREA
 ================================= -->
@@ -23,9 +26,6 @@
             </div>
           </div>
           <!-- end media -->
-          <div id="app">
-            <send-message></send-message>
-          </div>
           <ul class="social-icons social-icons-styled social--icons-styled">
             <li>
               <a href="#"><i class="la la-facebook"></i></a>
@@ -304,6 +304,15 @@
             id="myTab"
             role="tablist"
           >
+            @auth
+            <li class="nav-item">
+                <div id="app">
+                  <send-message :receiverid="{{ $instructor->id }}" receivername="{{ $instructor->name }}"></send-message>
+                </div>
+            </li>
+            @else
+            <button class="btn theme-btn d-none d-lg-inline-block">Login First</button>
+            @endauth
             <li class="nav-item">
               <a
                 class="nav-link active"

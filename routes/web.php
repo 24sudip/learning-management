@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\{CategoryController, CourseController, CouponController, SettingController, OrderController};
 use App\Http\Controllers\Frontend\{IndexController, WishlistController, CartController};
 use App\Http\Controllers\Backend\{QuestionController, ReportController, ReviewController, ActiveUserController, BlogController};
-use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\{RoleController, ChatController};
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -311,6 +311,9 @@ Route::get('/blog/cat/list/{id}', [BlogController::class, 'BlogCatList']);
 Route::get('/blog', [BlogController::class, 'BlogList'])->name('blog');
 
 Route::post('/mark-notification-as-read/{notification}', [CartController::class, 'MarkAsRead']);
+
+// Chat Post Request Route
+Route::post('/send-message', [ChatController::class, 'SendMessage']);
 
 require __DIR__.'/auth.php';
 
