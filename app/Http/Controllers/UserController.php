@@ -87,4 +87,8 @@ class UserController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+    public function LiveChat() {
+        return view('frontend.dashboard.live-chat');
+    }
 }

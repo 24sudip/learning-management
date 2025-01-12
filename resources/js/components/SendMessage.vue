@@ -16,6 +16,8 @@
                     <form @submit.prevent="sendMsg()">
                         <div class="modal-body">
                             <textarea class="form-control" v-model="form.msg" rows="3" placeholder="Type Your Message"></textarea>
+                            <span class="text-success" v-if="succMessage.message">{{ succMessage.message }}</span>
+                            <span class="text-danger" v-if="errors.msg">{{ errors.msg[0] }}</span>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Send Message</button>

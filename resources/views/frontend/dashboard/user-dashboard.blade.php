@@ -17,6 +17,8 @@
       rel="stylesheet"
     />
 
+    @vite(['resources/js/app.js'])
+
     <!-- Favicon -->
     <link rel="icon" sizes="16x16" href="{{ asset('frontend/images') }}/favicon.png" />
 
