@@ -21,4 +21,20 @@ class ChatController extends Controller
         ]);
         return response()->json(['message' => 'Message Sent Successfully']);
     }
+
+    public function GetAllUsers() {
+        $chat_messages = ChatMessage::orderBy('id','DESC')->where('sender_id', auth()->id())
+        ->orWhere('receiver_id', auth()->id())->get();
+        $users = $chat_messages->flatMap(function ($chat) {
+            if ($chat->sender_id === auth()->id()) {
+                return [$chat->sender, $chat->receiver];
+            }
+            return [$chat->receiver, $chat->sender];
+        })->unique();
+        return $users;
+    }
+
+    public function UserMsgById($userId) {
+
+    }
 }
