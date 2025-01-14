@@ -1,106 +1,100 @@
 <template>
-  <div class="row"  style="width: 1100px;">
-    <div class="col-md-2 myUser">
-        <ul class="user">
-           <strong>Chat List</strong>
-           <hr>
-            <li v-for="(user, index) in users" :key="index">
-                <a href="" @click.prevent="userMessage(user.id)">
-                    <img v-if="user.role === 'user'" :src="'/upload/user-images/'+user.photo"
-                    alt="UserImage"
-                    class="userImg"
-                    />
-                    <img v-else :src="'/upload/instructor-images/'+user.photo"
-                    alt="UserImage"
-                    class="userImg"
-                    />
-                    <span class="username text-center">{{ user.name }}</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-10">
-      <div class="card">
-        <div class="card-header text-center myrow">
-          <strong> Selected Users </strong>
+    <div class="row"  style="width: 1100px;">
+        <div class="col-md-2 myUser">
+            <ul class="user">
+            <strong>Chat List</strong>
+            <hr>
+                <li v-for="(user, index) in users" :key="index">
+                    <a href="" @click.prevent="userMessage(user.id)">
+                        <img v-if="user.role === 'user'" :src="'/upload/user-images/'+user.photo"
+                        alt="UserImage"
+                        class="userImg"
+                        />
+                        <img v-else :src="'/upload/instructor-images/'+user.photo"
+                        alt="UserImage"
+                        class="userImg"
+                        />
+                        <span class="username text-center">{{ user.name }}</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="card-body chat-msg">
-          <ul class="chat">
-
-           <li class="sender clearfix">
-              <span class="chat-img left clearfix mx-2">
-              <img src="/frontend/avatar-2.png"
-                  class="userImg"
-                  alt="userImg"
-                />
-              </span>
-              <div class="chat-body2 clearfix">
-                <div class="header clearfix">
-                  <strong class="primary-font">Username1</strong>
-                  <small class="right text-muted">
-                    11:30am
-                  </small>
-                  <!-- //if send with product id  -->
-                  <div class="text-center">
-                      product name
-                  <img src="/frontend/avatar-3.png"
-                      alt="productImg"
-                      width="60px;"
-                    />
-                  </div>
+        <div class="col-md-10" v-if="allmessages.user">
+            <div class="card">
+                <div class="card-header text-center myrow">
+                    <strong> Selected {{ allmessages.user.name }} </strong>
                 </div>
+                <div class="card-body chat-msg">
+                    <ul class="chat" v-for="(msg, index) in allmessages.chat_messages" :key="index">
 
-                <p>Hi..</p>
-              </div>
-            </li>
+                        <li class="sender clearfix" v-if="allmessages.user.id === msg.receiver_id">
+                            <span class="chat-img left clearfix mx-2">
+                                <img :src="'/upload/user-images/'+msg.user.photo"
+                                    class="userImg"
+                                    alt="userImg"
+                                    />
+                            </span>
+                            <div class="chat-body2 clearfix">
+                                <div class="header clearfix">
+                                    <strong class="primary-font">{{ msg.user.name }}</strong>
+                                    <small class="right text-muted text-white">
+                                        {{ formatDate(msg.created_at) }}
+                                    </small>
+                                    <!-- //if send with product id  -->
+                                    <div class="text-center">
+                                        {{ msg.msg }}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- my part  -->
+                        <li class="buyer clearfix" v-else>
+                            <span class="chat-img right clearfix mx-2">
+                                <img :src="'/upload/instructor-images/'+msg.user.photo"
+                                class="userImg"
+                                alt="userImg"
+                                />
+                            </span>
+                            <div class="chat-body clearfix">
+                                <div class="header clearfix">
+                                    <small class="left text-muted">{{ formatDate(msg.created_at) }}</small>
+                                    <strong class="right primary-font">
+                                        {{ msg.user.name }}
+                                    </strong>
+                                    <!-- <div class="text-center">
+                                        <img src="/frontend/images/sponsor-img7.png"
+                                            alt="prouductImage"
+                                            width="60px;"
+                                            />
+                                    </div> -->
+                                </div>
+                                <p>{{ msg.msg }}</p>
+                            </div>
+                        </li>
 
-        <!-- my part  -->
-            <li class="buyer clearfix">
-              <span class="chat-img right clearfix mx-2">
-                <img src="/frontend/avatar-4.png"
-                  class="userImg"
-                  alt="userImg"
-                />
-                 </span>
-              <div class="chat-body clearfix">
-                <div class="header clearfix">
-                  <small class="left text-muted"
-                    >12:10pm</small>
-                  <!-- <strong class="right primary-font">Myusername </strong> //my name   -->
-                   <div class="text-center">
-                      Product name
-                   <img src="/frontend/avatar-5.png"
-                      alt="prouductImage"
-                      width="60px;"
-                    />
-                  </div>
+                        <li class="sender clearfix">
+                            <span class="chat-img left clearfix mx-2"> </span>
+                        </li>
+
+                    </ul>
                 </div>
-                <p>Hello...</p>
-              </div>
-            </li>
-
-            <li class="sender clearfix">
-              <span class="chat-img left clearfix mx-2"> </span>
-            </li>
-
-          </ul>
+                <div class="card-footer">
+                    <div class="input-group">
+                        <input
+                        id="btn-input"
+                        type="text"
+                        v-model="msg"
+                        class="form-control input-sm"
+                        placeholder="Type your message here..."
+                        />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" @click.prevent="sendMsg()">Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-footer">
-          <div class="input-group">
-            <input
-              id="btn-input"
-              type="text"
-              class="form-control input-sm"
-              placeholder="Type your message here..."
-            />
-            <span class="input-group-btn">
-              <button class="btn btn-primary">Send</button>
-            </span>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -112,6 +106,7 @@ export default {
             users: {},
             allmessages: {},
             selectedUser: '',
+            msg: '',
         }
     },
     created() {
@@ -131,10 +126,25 @@ export default {
             .then((res) => {
                 this.allmessages = res.data;
                 this.selectedUser = userId;
+                // console.log(res.data);
             }).catch((err) => {
 
             })
-        }
+        },
+        sendMsg() {
+            axios.post('/send-message', { receiver_id: this.selectedUser, msg: this.msg })
+            .then((res) => {
+                this.msg = "";
+                this.userMessage(this.selectedUser);
+                console.log(res.data);
+            }).catch((err) => {
+                this.errors = err.response.data.errors;
+            })
+        },
+        formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        },
     }
 };
 </script>
@@ -214,7 +224,7 @@ export default {
   display: inline-block;
   max-width: 80%;
   margin-left: -64px;
-  background-color: #080000;
+  background-color: yellowgreen;
   border-radius: 12.5px;
   padding: 15px;
 }
