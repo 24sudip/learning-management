@@ -269,6 +269,8 @@ Route::middleware(['auth', 'roles:instructor'])->group(function () {
     Route::controller(ReviewController::class)->group(function () {
         Route::get('/instructor/all/review', 'InstructorAllReview')->name('instructor.all.review');
     });
+
+    Route::get('/instructor/live/chat', [ChatController::class, 'InstructorLiveChat'])->name('instructor.live.chat');
 });
 
 // Route Accessable for All

@@ -111,6 +111,9 @@ export default {
     },
     created() {
         this.getAllUser();
+        setInterval(() => {
+            this.userMessage(this.selectedUser);
+        }, 1000);
     },
     methods: {
         getAllUser() {
